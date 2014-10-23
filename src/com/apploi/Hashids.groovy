@@ -2,7 +2,7 @@ package com.apploi
 
 /**
  *
- * This is an implementation of http://hashids.org version 0.3.3.
+ * This is an implementation of http://hashids.org version 1.0.0.
  *
  * @author cmaron <cmaron@gmail.com>
  * @since 0.3.3
@@ -103,40 +103,12 @@ class Hashids {
     }
 
     /**
-     * Encrypt numbers to string
-     *
-     * @param numbers the numbers to encrypt
-     * @return the encrypted string
-     */
-    public String encrypt(long ... numbers) {
-        if (numbers.length == 0) {
-            return ""
-        }
-
-        return this.encode(numbers)
-    }
-
-    /**
-     * Decrypt string to numbers
-     *
-     * @param hash the encrypt string
-     * @return decryped numbers
-     */
-    public List<Long> decrypt(String hash) {
-        if (hash == "") {
-            return []
-        }
-
-        return this.decode(hash, this.alphabet)
-    }
-
-    /**
      * Encode numbers to string
      *
      * @param numbers the numbers to encrypt
      * @return the encoded string
      */
-    private String encode(long ... numbers) {
+    public String encode(long ... numbers) {
         if (numbers.length == 0) {
             return ""
         }
@@ -200,10 +172,11 @@ class Hashids {
      * Decode string to numbers
      *
      * @param hash the encoded string
-     * @param alphabet the alphabet to use for decoding
+     *
      * @return the decoded numbers
      */
-    private List<Long> decode(String hash, String alphabet) {
+    public List<Long> decode(String hash) {
+        def alphabet = this.alphabet
         List<Long> ret = []
 
         List<String> hashList = hash.split(/[${this.guards}]/)
